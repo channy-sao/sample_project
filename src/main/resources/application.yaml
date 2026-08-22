@@ -5,7 +5,7 @@ spring:
     name: sample_project
   logging:
     file:
-      name: ./logs/spring-data-jpa.log
+      name: ./logs/sample_project.log
     logback:
       rollingPolicy:
         max-file-size: 50MB
