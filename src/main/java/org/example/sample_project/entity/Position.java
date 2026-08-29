@@ -28,8 +28,8 @@ public class Position {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private String title; // e.g., "Software Engineer"
+    @Column(nullable = false, name = "name", length = 255)
+    private String name; // e.g., "Software Engineer"
 
     @Column(nullable = false, unique = true, length = 30)
     private String code; // e.g., "ENG-SE-01"
