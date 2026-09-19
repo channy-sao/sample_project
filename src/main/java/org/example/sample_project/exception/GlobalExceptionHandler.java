@@ -6,7 +6,6 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.coyote.BadRequestException;
 import org.example.sample_project.dto.response.BaseBodyResponse;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -152,5 +151,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     log.error(ex.getMessage(), ex);
     return BaseBodyResponse.failed(
         HttpStatus.SERVICE_UNAVAILABLE, "Database is temporarily unavailable");
+  }
+
+  @ExceptionHandler(RuntimeException.class)
+  public ResponseEntity<BaseBodyResponse<Void>> handleRuntimeException(
+          RuntimeException ex, HttpServletRequest request) {
+    log.error("Runtime exception caught: ", ex);
+    return BaseBodyResponse.failed(HttpStatus.BAD_REQUEST, ex.getMessage());
   }
 }

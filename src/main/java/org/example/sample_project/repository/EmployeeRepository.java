@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     @Query("SELECT COALESCE(MAX(emp.id), 0) FROM Employee emp")
@@ -18,4 +20,6 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
             "LOWER(e.firstName) LIKE LOWER(CONCAT('%', :filter, '%')) OR " +
             "LOWER(e.lastName) LIKE LOWER(CONCAT('%', :filter, '%'))")
     Page<Employee> findByNameContainingIgnoreCase(@Param("filter") String filter, Pageable pageable);
+
+    Optional<Employee> findByEmail(String username);
 }
